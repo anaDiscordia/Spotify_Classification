@@ -3,10 +3,10 @@
 This project was developed as a group assignment for the **Data Science and Machine Learning 1** course at the **University of Crete, Department of Physics**.
 
 ## Project Overview
-The goal of this project is to build a multi-class genre classifier using Spotify audio features. By analyzing track-level descriptors (such as danceability, energy, and acousticness), the project compares the performance of three common machine learning model families to determine the most effective approach for music genre prediction.
+The goal of this project is to build a multi-class genre classifier using Spotify audio features. By analyzing track-level descriptors (such as danceability, energy, and acousticness), we compare the performance of three model families to determine the most effective approach for music genre prediction.
 
 ## Dataset
-The dataset is sourced from the [Ultimate Spotify Tracks Database on Kaggle](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db). It contains metadata and audio features for over 232k tracks across various genres.
+The dataset is sourced from the [Ultimate Spotify Tracks Database on Kaggle](https://www.kaggle.com/datasets/zaheenhamidani/ultimate-spotify-tracks-db). It contains metadata and audio features for over 232k tracks.
 
 ## Getting Started
 
@@ -23,30 +23,22 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-## Implementation & Optimization
-This repository contains the evolution of the project across three iterations:
-1.  **Original Implementation:** The initial model development which focused on exhaustive Grid Search for hyperparameter tuning.
-2.  **Refined Versions:** Two subsequent versions focused on **computational efficiency**. Optimized the training pipeline by implementing `RandomizedSearchCV`, adjusting class balance for better stability, and reducing redundant processing.
+## Repository Structure
+This repository contains two versions of the analysis to demonstrate the progression from initial development to computational optimization:
 
-The final optimized version achieves comparable accuracy to the exhaustive original while running significantly faster, demonstrating a more professional and efficient machine learning pipeline.
+*   **`Spotify-Genre-Classification-Original.ipynb`**: Our initial submission. It utilizes exhaustive `GridSearchCV` and a higher number of Cross-Validation folds. While highly thorough, it has a significant computational runtime (e.g., SVM tuning exceeding 1.5 hours).
+*   **`spotify-genre-classification-Revised.ipynb`**: An optimized version of the project. It streamlines the pipeline using `RandomizedSearchCV` and more efficient data processing. It achieves equivalent (and in some cases superior) accuracy while running in a fraction of the time.
 
 ## Methodology
 - **Data Cleaning:** Missing value validation, duplicate removal based on `track_id`, and label normalization.
-- **Preprocessing:** Categorical encoding for variables like `key` and `mode`, and feature scaling (StandardScaler/MinMaxScaler) where required for specific model families.
-- **Dimensionality Reduction:** Filtering overlapping or underrepresented genres to improve class separability.
-- **Model Comparison:** 
-    - **Support Vector Machine (SVM)**
-    - **Random Forest (Ensemble Learning)**
-    - **Multi-layer Perceptron (Neural Network)**
+- **Preprocessing:** Categorical encoding for variables like `key` and `mode`, and feature scaling where required (StandardScaler/MinMaxScaler).
+- **Dimensionality Reduction:** Filtering overlapping genres to improve class separability.
+- **Models Compared:** 
+    - Support Vector Machine (SVM)
+    - Random Forest (Ensemble Learning)
+    - Multi-layer Perceptron (Neural Network)
 
 ## Key Findings
 - **Best Performer:** The **Random Forest** model consistently outperformed other families, achieving a top accuracy of **~81.9%**.
-- **Feature Importance:** Feature analysis revealed that **Acousticness** and **Instrumentalness** are the most discriminative features for genre classification.
-- **Optimization:** Found that the Random Forest baseline settings are highly effective for this dataset; exhaustive tuning provided only marginal gains compared to the computational cost.
-
-## Results Summary
-| Model | Baseline Accuracy | Tuned Accuracy |
-| :--- | :--- | :--- |
-| **Random Forest** | **0.8189** | 0.8172 |
-| **SVM** | 0.8003 | 0.8044 |
-| **MLP (Neural Net)** | 0.8034 | 0.8039 |
+- **Feature Importance:** Analysis revealed that **Acousticness** and **Instrumentalness** are the most discriminative audio features for genre separation.
+- **Efficiency:** The revised version demonstrates that strategic hyperparameter selection and search methods can maintain high accuracy while drastically reducing hardware strain.
